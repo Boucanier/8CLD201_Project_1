@@ -126,6 +126,23 @@
                 }
               }
             ]
+          },
+          "extensionProfile": {
+            "extensions": [
+              {
+                "name": "InstallServer",
+                "properties": {
+                  "publisher": "Microsoft.Azure.Extensions",
+                  "type": "CustomScript",
+                  "typeHandlerVersion": "2.0",
+                  "autoUpgradeMinorVersion": true,
+                  "settings": {
+                    "fileUris": [ "https://raw.githubusercontent.com/Boucanier/8CLD201_Project_1/main/installation.sh" ],
+                    "commandToExecute": "bash installation.sh"
+                  }
+                }
+              }
+            ]
           }
         }
       }
