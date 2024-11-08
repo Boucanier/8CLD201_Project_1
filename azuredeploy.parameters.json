@@ -1,6 +1,51 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "vmssName": {
+      "value": "Project-1-VMset" // Nom de l'ensemble de VM
+    },
+    "loadBalancerName": {
+      "value": "Project-1-LoadBalancer" // Nom de l'équilibreur de charge
+    },
+    "publicIPAddressName": {
+      "value": "Project-1-PublicIP" // Nom de l'adresse IP publique
+    },
+    "networkSecurityGroupName": {
+      "value": "Project-1-NSG" // Nom du groupe de sécurité réseau
+    },
+    "virtualNetworkName": {
+      "value": "Project-1-VN" // Nom du réseau virtuel
+    },
+    "subnetName": {
+      "value": "Project-1-Subnet" // Nom du sous-réseau
+    },
+    "addressPrefix": {
+      "value": "10.0.0.0/16" // Préfixe d'adresse du réseau virtuel
+    },
+    "subnetPrefix": {
+      "value": "10.0.0.0/24" // Préfixe d'adresse du sous-réseau
+    },
+    "location": {
+      "value": "Canada Central" // Emplacement de la ressource
+    },
+    "vmSize": {
+      "value": "Standard_DS1_v2" // Taille des machines virtuelles
+    },
+    "imagePublisher": {
+      "value": "Canonical" // Éditeur de l'image
+    },
+    "imageOffer": {
+      "value": "UbuntuServer" // Offre de l'image
+    },
+    "imageSku": {
+      "value": "18.04-LTS" // SKU de l'image
+    },
+    "adminUsername": {
+      "value": "azureadmin" // Nom d'utilisateur administrateur
+    },
+    "adminPassword": {
+      "value": "123Azure123*" // Mot de passe administrateur
+    }
   }
 }
