@@ -3,6 +3,7 @@
   "contentVersion": "1.0.0.0",
   "resources": [
     {
+      // Définition du load balancer
       "type": "Microsoft.Network/loadBalancers",
       "apiVersion": "2024-05-01",
       "name": "[parameters('loadBalancerName')]",
@@ -27,6 +28,7 @@
           }
         ],
         "loadBalancingRules": [
+          // Regle pour répartir les connections http (port 80)
           {
             "name": "HTTP",
             "properties": {
@@ -50,11 +52,13 @@
         ],
         "probes": [
           {
+            // Sonde pour jauger les charges pour le port 80
             "name": "HealthProbe",
             "properties": {
               "protocol": "Http",
               "port": 80,
               "requestPath": "/",
+              // On vérifie toutes les 5 secondes
               "intervalInSeconds": 5,
               "numberOfProbes": 2
             }
@@ -128,6 +132,7 @@
             ]
           },
           "extensionProfile": {
+            // Extension pour exécuter le script bash d'installation des serveurs
             "extensions": [
               {
                 "name": "InstallServer",
@@ -148,6 +153,7 @@
       }
     },
     {
+      // Parametres pour l'adresse ip publique
       "type": "Microsoft.Network/publicIPAddresses",
       "apiVersion": "2024-05-01",
       "name": "[parameters('publicIPAddressName')]",
@@ -157,6 +163,7 @@
       }
     },
     {
+      // Parametres pour le réseau virtuel
       "type": "Microsoft.Network/virtualNetworks",
       "apiVersion": "2024-05-01",
       "name": "[parameters('virtualNetworkName')]",
@@ -178,6 +185,7 @@
       }
     },
     {
+      // Parametres de sécurité de notre réseau
       "type": "Microsoft.Network/networkSecurityGroups",
       "apiVersion": "2024-05-01",
       "name": "[parameters('networkSecurityGroupName')]",
@@ -185,6 +193,7 @@
       "properties": {
         "securityRules": [
           {
+            // On autorise les requêtes au port http (port 80)
             "name": "Allow-HTTP",
             "properties": {
               "priority": 1000,
@@ -201,6 +210,7 @@
       }
     },
     {
+      // Parametres de scaling de notre VMset
       "type": "Microsoft.Insights/autoscaleSettings",
       "apiVersion": "2015-04-01",
       "name": "Project-1-VMset-Autoscale-765",
@@ -216,12 +226,16 @@
           {
             "name": "Auto created default scale condition",
             "capacity": {
+              // il existe au moins 2 machines sur le réseau
               "minimum": "2",
+              // il y a au maximum 10 machines
               "maximum": "10",
+              // 2 machines sont créés par défaut
               "default": "2"
             },
             "rules": [
               {
+                // On ajoute une VM quand le CPU est utilisé a plus de 50% pendant 5 minutes
                 "scaleAction": {
                   "direction": "Increase",
                   "type": "ChangeCount",
@@ -243,6 +257,7 @@
                 }
               },
               {
+                // On retire une VM quand le CPU est utilisé a moins de 20% pendant 5 minutes
                 "scaleAction": {
                   "direction": "Decrease",
                   "type": "ChangeCount",
@@ -269,6 +284,7 @@
       }
     }
   ],
+  // Définitions des parametres
   "parameters": {
     "vmssName": {
       "type": "string",
